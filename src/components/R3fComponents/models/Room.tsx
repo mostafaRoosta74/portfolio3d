@@ -4,7 +4,7 @@ import {GroupProps} from "@react-three/fiber/dist/declarations/src/three-types";
 import * as THREE from "three";
 import {BufferGeometry} from "three/src/core/BufferGeometry";
 import {Select} from "@react-three/postprocessing";
-import {PortalFrame} from "./components/PortalFrame";
+import {PortalFrame} from "../tools/PortalFrame";
 import {useControls} from "leva";
 
 export function Model(props:GroupProps & {setGlitch: (value: boolean) => void}) {

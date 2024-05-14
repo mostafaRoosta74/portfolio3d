@@ -1,5 +1,5 @@
 import {
-    Center, Environment, Gltf, MeshReflectorMaterial, OrbitControls, Preload, Text, Text3D, useFaceControls
+    Center, Environment, Gltf, Loader, MeshReflectorMaterial, OrbitControls, Preload, Text, Text3D, useFaceControls
 } from "@react-three/drei";
 import {
     EffectComposer,
@@ -11,12 +11,12 @@ import {
     Bloom,
     Pixelation, SMAA, LUT, SSR
 } from "@react-three/postprocessing"
-import {CameraRig} from "./components/CameraRig";
-import React, {useEffect, useState} from "react";
+import {CameraRig} from "./tools/CameraRig";
+import React, {Suspense, useEffect, useState} from "react";
 import {Vector2} from "three";
-import {Model} from "./Room";
-import {isMobile} from "./utils/utils";
-import {PortalFrame} from "./components/PortalFrame";
+import {Model} from "./models/Room";
+import {isMobile} from "../../utils/utils";
+import {PortalFrame} from "./tools/PortalFrame";
 import {useControls} from "leva";
 import {Perf} from "r3f-perf";
 import {LUTCubeLoader} from "postprocessing";
@@ -40,7 +40,7 @@ export default function Experience()
     // }, []);
 
     return <>
-        <Perf/>
+        {/*<Perf/>*/}
         <color args={["#000"]} attach={"background"} />
         {/*<OrbitControls/>*/}
         <CameraRig inView={true}/>
@@ -84,14 +84,16 @@ export default function Experience()
                     position={[3.3, 1.0, 4.4]}
                     intensity={Math.PI * 2}
                 />
-                <Model setGlitch={setGlitch}/>
-
+                <Suspense fallback={null}>
+                    <Model setGlitch={setGlitch} position={[0,-1,0]}/>
+                </Suspense>
                 {/*<mesh>*/}
                 {/*    <boxGeometry />*/}
                 {/*    <meshBasicMaterial />*/}
                 {/*</mesh>*/}
             </Selection>
         </Center>
+
         <Preload all />
     </>
 }

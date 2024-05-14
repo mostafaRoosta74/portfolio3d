@@ -1,23 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import {Canvas} from "@react-three/fiber";
-import Experience from "./Experience";
+import {NextUIProvider} from "@nextui-org/react";
+import R3fIndex from "./components/R3fComponents/R3fIndex";
+import {ReactIndex} from "./components/ReactComponents/ReactIndex";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <Canvas
-        id={"canvas"}
-        camera={ {
-            fov: 13,
-            near: 0.1,
-            far: 100,
-            position: [ - 6, 0, 6 ]
-        } }
-    >
-        <Experience />
-    </Canvas>
+  <NextUIProvider>
+    <R3fIndex/>
+    <ReactIndex/>
+  </NextUIProvider>
 );
