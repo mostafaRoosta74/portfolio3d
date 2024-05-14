@@ -1,5 +1,5 @@
 import {
-    Center, Environment, Gltf, MeshReflectorMaterial, OrbitControls, Preload, Text, useFaceControls
+    Center, Environment, Gltf, MeshReflectorMaterial, OrbitControls, Preload, Text, Text3D, useFaceControls
 } from "@react-three/drei";
 import {
     EffectComposer,
@@ -9,7 +9,7 @@ import {
     Vignette,
     Glitch,
     Bloom,
-    Pixelation, SMAA
+    Pixelation, SMAA, LUT, SSR
 } from "@react-three/postprocessing"
 import {CameraRig} from "./components/CameraRig";
 import React, {useEffect, useState} from "react";
@@ -18,13 +18,16 @@ import {Model} from "./Room";
 import {isMobile} from "./utils/utils";
 import {PortalFrame} from "./components/PortalFrame";
 import {useControls} from "leva";
+import {Perf} from "r3f-perf";
+import {LUTCubeLoader} from "postprocessing";
+import {useLoader} from "@react-three/fiber";
 
 export default function Experience()
 {
 
     const [glitch,setGlitch] = useState(false);
     //const [PixelationNum,setPixelationNum] = useState(0);
-
+    const texture = useLoader(LUTCubeLoader, '/object/F-6800-STD.cube')
 
     // useEffect(() => {
     //     setInterval(()=>{
@@ -37,16 +40,25 @@ export default function Experience()
     // }, []);
 
     return <>
+        <Perf/>
         <color args={["#000"]} attach={"background"} />
         {/*<OrbitControls/>*/}
         <CameraRig inView={true}/>
         <Environment preset="city" />
         <fog attach="fog" args={['#000', 40, 60]} />
+        <mesh scale={3} position={[1, -1.161, -1.5]} rotation={[-Math.PI / 2, 0, Math.PI / 2.5]}>
+            <ringGeometry args={[0.9, 1, 4, 1]} />
+            <meshStandardMaterial color={[5,5,5]} roughness={0.75} toneMapped={false}/>
+        </mesh>
+        <mesh scale={3  } position={[-1, -1.161, -1]} rotation={[-Math.PI / 2, 0, Math.PI / 2.5]}>
+            <ringGeometry args={[0.9, 1, 3, 1]} />
+            <meshStandardMaterial color={[5,5,5]} roughness={0.75} toneMapped={false} />
+        </mesh>
+
         <Center>
             <Selection>
                 <EffectComposer multisampling={0} autoClear={false}>
                     {/*<Pixelation granularity={PixelationNum} />*/}
-                    <SMAA />
                     <Vignette
                       offset={0.3}
                       darkness={0.9}
@@ -65,6 +77,7 @@ export default function Experience()
                       luminanceThreshold={0}
                     />
                     <Outline visibleEdgeColor={0xffffff} hiddenEdgeColor={0xffffff} blur={false} edgeStrength={10} xRay={false} pulseSpeed={0.6} />
+                    <LUT lut={texture as any} />
 
                 </EffectComposer>
                 <directionalLight

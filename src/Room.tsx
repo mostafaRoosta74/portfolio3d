@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react'
-import {Gltf, Text, useGLTF} from '@react-three/drei'
+import {Gltf, Text, Text3D, useGLTF} from '@react-three/drei'
 import {GroupProps} from "@react-three/fiber/dist/declarations/src/three-types";
 import * as THREE from "three";
 import {BufferGeometry} from "three/src/core/BufferGeometry";
@@ -13,7 +13,7 @@ export function Model(props:GroupProps & {setGlitch: (value: boolean) => void}) 
   // const controls = useControls({
   //   testPosition:{x:-1,y:0.96,z:-0.90},
   // })
-  const plantText = ["","Don't touch the plants!","I said don't touch the plants","فارسی بلدی! به گلدون دست نزن","بیا"]
+  const plantText = ["","Don't touch the plants!","I said don't touch the plants","فارسی بلدی! به گیاه دست نزن","بیا"]
 
   const [glitchCount,setGlitchCount] = useState(0);
   const [enabledObj, setEnabledObj] = React.useState("")
@@ -34,11 +34,19 @@ export function Model(props:GroupProps & {setGlitch: (value: boolean) => void}) 
   return (
     <group {...props} dispose={null}>
       <Text fontSize={0.04} anchorX="right" position={[-1,0.96,-1.3]} material-toneMapped={false}>
-        {plantText[glitchCount < plantText.length ? glitchCount : plantText.length - 1]}
+        {plantText[parseInt(`${glitchCount/4}`) < plantText.length * 4 ? parseInt(`${glitchCount/4}`) : plantText.length - 1]}
       </Text>
-      <Text  fontSize={0.02} anchorX="right" position={[0.14,0.97,-1]} material-toneMapped={false}>
-        {"Dabble click to enter the portal"}
-      </Text>
+      {/*<Text fontSize={0.02} anchorX="right" position={[0.14,0.97,-1]} material-toneMapped={false}>*/}
+      {/*  {"Dabble click to enter the portal"}*/}
+      {/*</Text>*/}
+      <Text3D
+        font={"./fonts/helvetiker_regular.typeface.json"}
+        size={0.02}
+        height={0.0}
+        position={[-0.20,0.97,-1]}
+      >
+        Dabble click to enter the portal
+      </Text3D>
       <group position={[-0.941, 0.01, -0.605]} rotation={[-Math.PI / 2, 0, 0]}>
         <mesh geometry={nodes.Bin_Bin_Metal_0.geometry} material={materials.Bin_Metal} />
         <mesh geometry={nodes.Bin_Bin_Metal_0_1.geometry} material={materials.Bin_Shader} />
@@ -57,7 +65,7 @@ export function Model(props:GroupProps & {setGlitch: (value: boolean) => void}) 
         </Select>
       </group>
 
-      {plantText.length - 1 > glitchCount &&
+      {plantText.length - 1 > parseInt(`${glitchCount/4}`) &&
         <group onPointerEnter={() => props.setGlitch(true)} onPointerLeave={event => {
           props.setGlitch(false)
           setGlitchCount(pre => pre + 1)
