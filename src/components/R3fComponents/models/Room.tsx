@@ -6,20 +6,19 @@ import {BufferGeometry} from "three/src/core/BufferGeometry";
 import {Select} from "@react-three/postprocessing";
 import {PortalFrame} from "../tools/PortalFrame";
 import {useControls} from "leva";
+import {useStore} from "../../../App";
 
 export function Model(props:GroupProps & {setGlitch: (value: boolean) => void}) {
   const { nodes:nod, materials } = useGLTF('./object/room2.glb');
   const nodes: { [name: string]: THREE.Object3D & {geometry:BufferGeometry} } = nod as any;
-  // const controls = useControls({
-  //   testPosition:{x:-1,y:0.96,z:-0.90},
-  // })
+
   const plantText = ["","Don't touch the plants!","I said don't touch the plants","فارسی بلدی! به گیاه دست نزن","بیا"]
 
   const [glitchCount,setGlitchCount] = useState(0);
   const [enabledObj, setEnabledObj] = React.useState("")
-  // const controls = useControls({
-  //   testPosition:{x:-1,y:0.96,z:-0.90},
-  // })
+
+  const {setDialogKey} = useStore()
+
 
   const onMouseEnter = (name:string) => {
     setEnabledObj(name);
@@ -54,6 +53,9 @@ export function Model(props:GroupProps & {setGlitch: (value: boolean) => void}) 
       <group
         onPointerEnter={()=>onMouseEnter("books")}
         onPointerLeave={onMouseLeave}
+        onClick={()=>{
+          setDialogKey("Skills")
+        }}
       >
         <Select enabled={enabledObj === "books"}>
       <group position={[1.066, 1.308, -1.019]} rotation={[Math.PI / 2, 0, 2.729]}>
@@ -123,7 +125,9 @@ export function Model(props:GroupProps & {setGlitch: (value: boolean) => void}) 
         onPointerEnter={()=>onMouseEnter("art")}
         onPointerLeave={onMouseLeave}
       >
-        <Select enabled={enabledObj === "art"}>
+        <Select enabled={enabledObj === "art"} onClick={()=>{
+          setDialogKey("About me")
+        }}>
       <mesh geometry={nodes['Poster_#1_Art'].geometry} material={materials.Art_02} position={[-0.703, 1.371, -1.227]} rotation={[-Math.PI / 2, 0, 0]} />
       <group position={[-0.703, 1.371, -1.227]} rotation={[-Math.PI / 2, 0, 0]}>
         <mesh geometry={nodes['Poster_#1_Poster_White_Border_0'].geometry} material={materials.Poster_White_Border} />

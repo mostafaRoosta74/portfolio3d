@@ -1,6 +1,5 @@
 import {Canvas} from "@react-three/fiber";
 import Experience from "./Experience";
-import {Loader} from "@react-three/drei";
 import React, {memo} from "react";
 
 const R3fIndex= () => {
@@ -18,7 +17,6 @@ const R3fIndex= () => {
       >
         <Experience />
       </Canvas>
-      <Loader />
     </>
   )
 }

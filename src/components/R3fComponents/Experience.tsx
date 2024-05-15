@@ -24,10 +24,12 @@ import {useLoader} from "@react-three/fiber";
 
 export default function Experience()
 {
-
     const [glitch,setGlitch] = useState(false);
     //const [PixelationNum,setPixelationNum] = useState(0);
     const texture = useLoader(LUTCubeLoader, '/object/F-6800-STD.cube')
+    // const controls= useControls({
+    //     light:{x:3.3,y:1,z:4.4}
+    // })
 
     // useEffect(() => {
     //     setInterval(()=>{
@@ -40,11 +42,11 @@ export default function Experience()
     // }, []);
 
     return <>
-        {/*<Perf/>*/}
+        <Perf/>
         <color args={["#000"]} attach={"background"} />
         {/*<OrbitControls/>*/}
         <CameraRig inView={true}/>
-        <Environment preset="city" />
+        {/*<Environment preset="city" />*/}
         <fog attach="fog" args={['#000', 40, 60]} />
         <mesh scale={3} position={[1, -1.161, -1.5]} rotation={[-Math.PI / 2, 0, Math.PI / 2.5]}>
             <ringGeometry args={[0.9, 1, 4, 1]} />
@@ -81,12 +83,12 @@ export default function Experience()
 
                 </EffectComposer>
                 <directionalLight
-                    position={[3.3, 1.0, 4.4]}
-                    intensity={Math.PI * 2}
+                    castShadow
+                    position={[3.3, 1, 4.4]}
+                    intensity={Math.PI * 2.5}
                 />
-                <Suspense fallback={null}>
+
                     <Model setGlitch={setGlitch} position={[0,-1,0]}/>
-                </Suspense>
                 {/*<mesh>*/}
                 {/*    <boxGeometry />*/}
                 {/*    <meshBasicMaterial />*/}
