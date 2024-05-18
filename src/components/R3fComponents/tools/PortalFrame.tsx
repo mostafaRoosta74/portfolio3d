@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { MeshPortalMaterial } from '@react-three/drei';
 import { useRoute, useLocation } from 'wouter';
@@ -23,7 +23,6 @@ export const PortalFrame = ({
 	const portal = useRef<any>();
 	const [, setLocation] = useLocation();
 	const [, params] = useRoute('/item/:id');
-	const [hovered, hover] = useState(false);
 
 	useFrame((state, dt) =>
 		easing.damp(portal.current, 'blend', params?.id === idd ? 1 : 0, 0.2, dt),
@@ -33,11 +32,10 @@ export const PortalFrame = ({
 			<mesh
 				name={idd}
 				geometry={geometry}
-				onDoubleClick={(e) => (
-					e.stopPropagation(), setLocation('/item/' + e.object.name)
-				)}
-				onPointerOver={(e) => hover(true)}
-				onPointerOut={() => hover(false)}
+				onDoubleClick={(e) => {
+					e.stopPropagation();
+					setLocation('/item/' + e.object.name);
+				}}
 			>
 				{/*<planeGeometry args={[width, height]} />*/}
 				<MeshPortalMaterial

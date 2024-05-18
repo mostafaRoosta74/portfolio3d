@@ -3,11 +3,7 @@ import { easing } from 'maath';
 import { MathUtils } from 'three';
 import { isMobile } from '../../../utils/utils';
 export const CameraRig = (props: { inView: boolean }) => {
-	const a = document.getElementById('canvas')!;
-
 	useFrame((state, delta) => {
-		// const offset = (a.offsetTop - window.scrollY) / 1000;
-
 		if (props.inView) {
 			if (isMobile()) {
 				easing.damp3(

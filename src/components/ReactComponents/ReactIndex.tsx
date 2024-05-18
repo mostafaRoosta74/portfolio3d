@@ -25,16 +25,11 @@ export const ReactIndex = () => {
 		} else {
 			onClose();
 		}
-	}, [dialogKey]);
+	}, [dialogKey, onClose, onOpen]);
 
 	return (
 		<main>
-			<Modal
-				backdrop={'transparent'}
-				isOpen={isOpen}
-				onClose={onClose}
-				size={'2xl'}
-			>
+			<Modal backdrop={'blur'} isOpen={isOpen} onClose={onClose} size={'2xl'}>
 				<ModalContent>
 					{() => (
 						<>

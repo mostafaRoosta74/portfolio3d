@@ -323,4 +323,4 @@ export function Model(
 	);
 }
 
-useGLTF.preload('./object/room.glb');
+useGLTF.preload('./object/room2.glb');
