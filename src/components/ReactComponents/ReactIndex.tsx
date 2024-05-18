@@ -9,7 +9,8 @@ import {
 } from '@nextui-org/react';
 import { useStore } from '../../App';
 import { useEffect } from 'react';
-import { Skills } from './dialogComponents/Skills';
+import { Skills } from './dialogComponents/skills/Skills';
+import { AboutMe } from './dialogComponents/aboutMe/AboutMe';
 
 export const ReactIndex = () => {
 	const { dialogKey, setDialogKey } = useStore();
@@ -29,16 +30,20 @@ export const ReactIndex = () => {
 
 	return (
 		<main>
-			<Modal backdrop={'blur'} isOpen={isOpen} onClose={onClose} size={'2xl'}>
+			<Modal
+				backdrop={'blur'}
+				isOpen={isOpen}
+				onClose={onClose}
+				size={'2xl'}
+				scrollBehavior={'inside'}
+			>
 				<ModalContent>
 					{() => (
 						<>
 							<ModalHeader className="flex flex-col gap-1">
 								{dialogKey}
 							</ModalHeader>
-							<ModalBody>
-								{dialogKey === 'Skills' ? <Skills /> : 'aa'}
-							</ModalBody>
+							<ModalBody>{dialogSwitch(dialogKey)}</ModalBody>
 							<ModalFooter>
 								<Button color="danger" variant="light" onPress={onClose}>
 									Close
@@ -50,4 +55,15 @@ export const ReactIndex = () => {
 			</Modal>
 		</main>
 	);
+};
+
+const dialogSwitch = (title: string) => {
+	switch (title) {
+		case 'Skills':
+			return <Skills />;
+		case 'About me':
+			return <AboutMe />;
+		default:
+			return <></>;
+	}
 };
