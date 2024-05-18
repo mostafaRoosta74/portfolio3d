@@ -21,4 +21,4 @@ const R3fIndex = () => {
 	);
 };
 
-export default memo(R3fIndex, (prevProps) => true);
+export default memo(R3fIndex, () => true);

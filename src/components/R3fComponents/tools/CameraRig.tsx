@@ -8,7 +8,7 @@ export const CameraRig = (props: { inView: boolean }) => {
 			if (isMobile()) {
 				easing.damp3(
 					state.camera.position,
-					[0 + -(state.pointer.y * state.viewport.width) * 0.2, 0, 16],
+					[-(state.pointer.y * state.viewport.width) * 0.2, 0, 16],
 					0.5,
 					delta,
 				);
@@ -16,7 +16,7 @@ export const CameraRig = (props: { inView: boolean }) => {
 			} else {
 				easing.damp3(
 					state.camera.position,
-					[0 + state.pointer.x * state.viewport.width * 1.5, 3, 7],
+					[state.pointer.x * state.viewport.width * 1.5, 3, 7],
 					0.5,
 					delta,
 				);

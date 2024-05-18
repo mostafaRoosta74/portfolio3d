@@ -109,7 +109,7 @@ export function Model(
 			{plantText.length - 1 > parseInt(`${glitchCount / 4}`) && (
 				<group
 					onPointerEnter={() => props.setGlitch(true)}
-					onPointerLeave={(event) => {
+					onPointerLeave={() => {
 						props.setGlitch(false);
 						setGlitchCount((pre) => pre + 1);
 					}}

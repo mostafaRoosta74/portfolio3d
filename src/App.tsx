@@ -16,15 +16,16 @@ export const useStore = create<StateType>((set) => ({
 }));
 
 export const App = () => {
+	// service worker
 	if ('serviceWorker' in navigator) {
 		const wb = new Workbox('/sw.js');
-
-		wb.addEventListener('waiting', (event) => {
+		wb.addEventListener('waiting', () => {
 			window.location.reload();
 			wb.messageSW({ type: 'SKIP_WAITING' });
 		});
 		wb.register();
 	}
+
 	return (
 		<>
 			<Suspense fallback={null}>
