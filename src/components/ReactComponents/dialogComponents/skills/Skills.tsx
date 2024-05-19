@@ -1,4 +1,4 @@
-import { Chip, Divider, ScrollShadow } from '@nextui-org/react';
+import { ScrollShadow } from '@nextui-org/react';
 import { FrontEndSkills } from './sections/FrontEndSkills';
 import { AISkills } from './sections/AISkills';
 import { BackEndSkills } from './sections/BackEndSkills';
