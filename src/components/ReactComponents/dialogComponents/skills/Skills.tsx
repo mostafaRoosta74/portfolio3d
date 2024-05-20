@@ -1,7 +1,7 @@
 import { ScrollShadow } from '@nextui-org/react';
-import { FrontEndSkills } from './sections/FrontEndSkills';
+import FrontEndSkills from './sections/FrontEndSkills';
 import AISkills from './sections/AISkills';
-import { BackEndSkills } from './sections/BackEndSkills';
+import BackEndSkills from './sections/BackEndSkills';
 
 const Skills = () => (
 	<ScrollShadow>

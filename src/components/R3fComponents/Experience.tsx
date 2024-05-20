@@ -15,7 +15,7 @@ import { Perf } from 'r3f-perf';
 import { LUTCubeLoader } from 'postprocessing';
 import { useLoader } from '@react-three/fiber';
 import Model from './models/Room';
-import { CameraRig } from './tools/CameraRig';
+import CameraRig from './tools/CameraRig';
 
 const Experience = () => {
 	const [glitch, setGlitch] = useState(false);

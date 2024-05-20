@@ -5,7 +5,7 @@ import { GroupProps } from '@react-three/fiber/dist/declarations/src/three-types
 import * as THREE from 'three';
 import { BufferGeometry } from 'three/src/core/BufferGeometry';
 import { Select } from '@react-three/postprocessing';
-import { PortalFrame } from '../tools/PortalFrame';
+import PortalFrame from '../tools/PortalFrame';
 import { useStore } from '../../../App';
 
 const Model = ({
@@ -182,6 +182,8 @@ const Model = ({
 				geometry={nodes.screen.geometry}
 				position={[-0.009, 0.785, -1.034]}
 				rotation={[-Math.PI / 2, 0, 0]}
+				height={1.61803398875}
+				width={1}
 			>
 				<Gltf
 					src="object/fiesta_tea-transformed.glb"
