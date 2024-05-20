@@ -7,12 +7,23 @@ import {
 	ModalHeader,
 	useDisclosure,
 } from '@nextui-org/react';
-import { useStore } from '../../App';
 import { useEffect } from 'react';
-import { Skills } from './dialogComponents/skills/Skills';
-import { AboutMe } from './dialogComponents/aboutMe/AboutMe';
+import { useStore } from '../../App';
+import Skills from './dialogComponents/skills/Skills';
+import AboutMe from './dialogComponents/aboutMe/AboutMe';
 
-export const ReactIndex = () => {
+const dialogSwitch = (title: string) => {
+	switch (title) {
+		case 'Skills':
+			return <Skills />;
+		case 'About me':
+			return <AboutMe />;
+		default:
+			return null;
+	}
+};
+
+const ReactIndex = () => {
 	const { dialogKey, setDialogKey } = useStore();
 	const { isOpen, onOpen, onClose } = useDisclosure({
 		onClose() {
@@ -21,7 +32,7 @@ export const ReactIndex = () => {
 	});
 
 	useEffect(() => {
-		if (!!dialogKey) {
+		if (dialogKey) {
 			onOpen();
 		} else {
 			onClose();
@@ -31,11 +42,11 @@ export const ReactIndex = () => {
 	return (
 		<main>
 			<Modal
-				backdrop={'blur'}
+				backdrop="blur"
 				isOpen={isOpen}
 				onClose={onClose}
-				size={'2xl'}
-				scrollBehavior={'inside'}
+				size="2xl"
+				scrollBehavior="inside"
 			>
 				<ModalContent>
 					{() => (
@@ -57,13 +68,4 @@ export const ReactIndex = () => {
 	);
 };
 
-const dialogSwitch = (title: string) => {
-	switch (title) {
-		case 'Skills':
-			return <Skills />;
-		case 'About me':
-			return <AboutMe />;
-		default:
-			return <></>;
-	}
-};
+export default ReactIndex;

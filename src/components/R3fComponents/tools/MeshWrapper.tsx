@@ -1,23 +1,27 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
-import React from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
-export const MeshWrapper = (props: {
+const MeshWrapper = ({
+	children,
+	forceActive,
+}: {
 	forceActive: boolean;
 	children: (
 		active: boolean,
-		onEnter: Function,
-		onLeave: Function,
-		carpet: any,
+		onEnter: () => void,
+		onLeave: () => void,
+		carpet: NonNullable<unknown>,
 	) => ReactNode;
 }) => {
 	const [active, setActive] = useState(false);
 	const carpet = useRef();
 
 	useEffect(() => {
-		setActive(props.forceActive);
-	}, [props.forceActive]);
+		setActive(forceActive);
+	}, [forceActive]);
 
 	const onEnter = () => setActive(true);
 	const onLeave = () => setActive(false);
-	return <>{props.children(active, onEnter, onLeave, carpet)}</>;
+	return <>{children(active, onEnter, onLeave, carpet)}</>;
 };
+
+export default MeshWrapper;

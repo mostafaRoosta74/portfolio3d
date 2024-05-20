@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Gltf, Text, Text3D, useGLTF } from '@react-three/drei';
+// eslint-disable-next-line import/no-unresolved
 import { GroupProps } from '@react-three/fiber/dist/declarations/src/three-types';
 import * as THREE from 'three';
 import { BufferGeometry } from 'three/src/core/BufferGeometry';
@@ -7,13 +8,15 @@ import { Select } from '@react-three/postprocessing';
 import { PortalFrame } from '../tools/PortalFrame';
 import { useStore } from '../../../App';
 
-export function Model(
-	props: GroupProps & { setGlitch: (value: boolean) => void },
-) {
+const Model = ({
+	setGlitch,
+	...other
+}: GroupProps & { setGlitch: (value: boolean) => void }) => {
 	const { nodes: nod, materials } = useGLTF('./object/room2.glb');
-	const nodes: {
-		[name: string]: THREE.Object3D & { geometry: BufferGeometry };
-	} = nod as any;
+	const nodes = nod as Record<
+		string,
+		THREE.Object3D & { geometry: BufferGeometry }
+	>;
 
 	const plantText = [
 		'',
@@ -38,7 +41,7 @@ export function Model(
 	};
 
 	return (
-		<group {...props} dispose={null}>
+		<group {...other} dispose={null}>
 			<Text
 				fontSize={0.04}
 				anchorX="right"
@@ -47,17 +50,17 @@ export function Model(
 			>
 				{
 					plantText[
-						parseInt(`${glitchCount / 4}`) < plantText.length * 4
-							? parseInt(`${glitchCount / 4}`)
+						parseInt(`${glitchCount / 4}`, 10) < plantText.length * 4
+							? parseInt(`${glitchCount / 4}`, 10)
 							: plantText.length - 1
 					]
 				}
 			</Text>
-			{/*<Text fontSize={0.02} anchorX="right" position={[0.14,0.97,-1]} material-toneMapped={false}>*/}
-			{/*  {"Dabble click to enter the portal"}*/}
-			{/*</Text>*/}
+			{/* <Text fontSize={0.02} anchorX="right" position={[0.14,0.97,-1]} material-toneMapped={false}> */}
+			{/*  {"Dabble click to enter the portal"} */}
+			{/* </Text> */}
 			<Text3D
-				font={'./fonts/helvetiker_regular.typeface.json'}
+				font="./fonts/helvetiker_regular.typeface.json"
 				size={0.02}
 				height={0.0}
 				position={[-0.2, 0.97, -1]}
@@ -106,11 +109,11 @@ export function Model(
 				</Select>
 			</group>
 
-			{plantText.length - 1 > parseInt(`${glitchCount / 4}`) && (
+			{plantText.length - 1 > parseInt(`${glitchCount / 4}`, 10) && (
 				<group
-					onPointerEnter={() => props.setGlitch(true)}
+					onPointerEnter={() => setGlitch(true)}
 					onPointerLeave={() => {
-						props.setGlitch(false);
+						setGlitch(false);
 						setGlitchCount((pre) => pre + 1);
 					}}
 				>
@@ -186,7 +189,7 @@ export function Model(
 					rotation={[0, -Math.PI / 2, -Math.PI / 2]}
 				/>
 			</PortalFrame>
-			{/*<mesh geometry={nodes.screen.geometry} material={materials.iMac_Screen} position={[-0.009, 0.785, -1.034]} rotation={[-Math.PI / 2, 0, 0]} />*/}
+			{/* <mesh geometry={nodes.screen.geometry} material={materials.iMac_Screen} position={[-0.009, 0.785, -1.034]} rotation={[-Math.PI / 2, 0, 0]} /> */}
 			<group position={[-0.1, 0.716, -0.714]} rotation={[-1.529, 0.004, 0.092]}>
 				<mesh
 					geometry={nodes.Keyboard_iMac_Grey_Aluminium_0.geometry}
@@ -321,6 +324,8 @@ export function Model(
 			</group>
 		</group>
 	);
-}
+};
 
 useGLTF.preload('./object/room2.glb');
+
+export default Model;

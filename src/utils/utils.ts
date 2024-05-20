@@ -1,6 +1,7 @@
+// eslint-disable-next-line import/prefer-default-export
 export const isMobile = () => {
 	let check = false;
-	(function (a) {
+	((a: string) => {
 		if (
 			/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series([46])0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(
 				a,
@@ -10,6 +11,7 @@ export const isMobile = () => {
 			)
 		)
 			check = true;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
 	})(navigator.userAgent || navigator.vendor || (window as any).opera);
 	return check;
 };

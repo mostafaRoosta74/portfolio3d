@@ -21,8 +21,10 @@ export const App = () => {
 		const wb = new Workbox('/sw.js');
 		wb.addEventListener('waiting', () => {
 			window.location.reload();
+			// eslint-disable-next-line @typescript-eslint/no-floating-promises
 			wb.messageSW({ type: 'SKIP_WAITING' });
 		});
+		// eslint-disable-next-line @typescript-eslint/no-floating-promises
 		wb.register();
 	}
 

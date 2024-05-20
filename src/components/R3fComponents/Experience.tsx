@@ -8,18 +8,19 @@ import {
 	Bloom,
 	LUT,
 } from '@react-three/postprocessing';
-import { CameraRig } from './tools/CameraRig';
 import React, { useState } from 'react';
 import { Vector2 } from 'three';
-import { Model } from './models/Room';
+import type { Texture } from 'three';
 import { Perf } from 'r3f-perf';
 import { LUTCubeLoader } from 'postprocessing';
 import { useLoader } from '@react-three/fiber';
+import Model from './models/Room';
+import { CameraRig } from './tools/CameraRig';
 
-export default function Experience() {
+const Experience = () => {
 	const [glitch, setGlitch] = useState(false);
-	//const [PixelationNum,setPixelationNum] = useState(0);
-	const texture = useLoader(LUTCubeLoader, '/object/F-6800-STD.cube');
+	// const [PixelationNum,setPixelationNum] = useState(0);
+	const texture: Texture = useLoader(LUTCubeLoader, '/object/F-6800-STD.cube');
 	// const controls= useControls({
 	//     light:{x:3.3,y:1,z:4.4}
 	// })
@@ -37,10 +38,10 @@ export default function Experience() {
 	return (
 		<>
 			<Perf />
-			<color args={['#000']} attach={'background'} />
-			{/*<OrbitControls/>*/}
-			<CameraRig inView={true} />
-			{/*<Environment preset="city" />*/}
+			<color args={['#000']} attach="background" />
+			{/* <OrbitControls/> */}
+			<CameraRig inView />
+			{/* <Environment preset="city" /> */}
 			<fog attach="fog" args={['#000', 40, 60]} />
 			<mesh
 				scale={3}
@@ -70,7 +71,7 @@ export default function Experience() {
 			<Center>
 				<Selection>
 					<EffectComposer multisampling={0} autoClear={false}>
-						{/*<Pixelation granularity={PixelationNum} />*/}
+						{/* <Pixelation granularity={PixelationNum} /> */}
 						<Vignette offset={0.3} darkness={0.9} blendFunction={25} />
 						<Glitch
 							mode={3}
@@ -88,7 +89,7 @@ export default function Experience() {
 							xRay={false}
 							pulseSpeed={0.6}
 						/>
-						<LUT lut={texture as any} />
+						<LUT lut={texture} />
 					</EffectComposer>
 					<directionalLight
 						castShadow
@@ -97,14 +98,16 @@ export default function Experience() {
 					/>
 
 					<Model setGlitch={setGlitch} position={[0, -1, 0]} />
-					{/*<mesh>*/}
-					{/*    <boxGeometry />*/}
-					{/*    <meshBasicMaterial />*/}
-					{/*</mesh>*/}
+					{/* <mesh> */}
+					{/*    <boxGeometry /> */}
+					{/*    <meshBasicMaterial /> */}
+					{/* </mesh> */}
 				</Selection>
 			</Center>
 
 			<Preload all />
 		</>
 	);
-}
+};
+
+export default Experience;

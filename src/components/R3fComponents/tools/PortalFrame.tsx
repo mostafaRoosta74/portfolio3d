@@ -1,26 +1,30 @@
 import * as THREE from 'three';
-import { useRef } from 'react';
+import { MutableRefObject, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { MeshPortalMaterial } from '@react-three/drei';
 import { useRoute, useLocation } from 'wouter';
 import { easing } from 'maath';
+import { PortalMaterialType } from '@react-three/drei/core/MeshPortalMaterial';
+import { JSX } from 'react/jsx-dev-runtime';
+import IntrinsicElements = JSX.IntrinsicElements;
 
 type PortalFrameProps = {
 	idd: string;
 	author: string;
-	width?: number;
-	height?: number;
+	width: number | undefined;
+	height: number | undefined;
 	geometry: THREE.BufferGeometry;
-} & JSX.IntrinsicElements['group'];
-export const PortalFrame = ({
+} & IntrinsicElements['group'];
+const PortalFrame = ({
 	idd,
 	width = 1,
 	height = 1.61803398875,
-	children = <></>,
+	children = null,
 	geometry,
 	...props
 }: PortalFrameProps) => {
-	const portal = useRef<any>();
+	const portal =
+		useRef<PortalMaterialType>() as MutableRefObject<PortalMaterialType>;
 	const [, setLocation] = useLocation();
 	const [, params] = useRoute('/item/:id');
 
@@ -34,10 +38,10 @@ export const PortalFrame = ({
 				geometry={geometry}
 				onDoubleClick={(e) => {
 					e.stopPropagation();
-					setLocation('/item/' + e.object.name);
+					setLocation(`/item/${e.object.name}`);
 				}}
 			>
-				{/*<planeGeometry args={[width, height]} />*/}
+				{/* <planeGeometry args={[width, height]} /> */}
 				<MeshPortalMaterial
 					ref={portal}
 					events={params?.id === idd}
@@ -49,3 +53,4 @@ export const PortalFrame = ({
 		</group>
 	);
 };
+export default PortalFrame;

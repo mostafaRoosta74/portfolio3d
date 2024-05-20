@@ -2,9 +2,10 @@ import { useFrame } from '@react-three/fiber';
 import { easing } from 'maath';
 import { MathUtils } from 'three';
 import { isMobile } from '../../../utils/utils';
-export const CameraRig = (props: { inView: boolean }) => {
+
+const CameraRig = ({ inView }: { inView: boolean }) => {
 	useFrame((state, delta) => {
-		if (props.inView) {
+		if (inView) {
 			if (isMobile()) {
 				easing.damp3(
 					state.camera.position,
@@ -29,3 +30,5 @@ export const CameraRig = (props: { inView: boolean }) => {
 	});
 	return null;
 };
+
+export default CameraRig;
