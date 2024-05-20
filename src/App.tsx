@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { Loader } from '@react-three/drei';
 import { Workbox } from 'workbox-window';
 import R3fIndex from './components/R3fComponents/R3fIndex';
-import { ReactIndex } from './components/ReactComponents/ReactIndex';
+import ReactIndex from './components/ReactComponents/ReactIndex';
 
 interface StateType {
 	dialogKey: string;
