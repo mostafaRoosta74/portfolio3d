@@ -5,8 +5,8 @@ import { MeshPortalMaterial } from '@react-three/drei';
 import { useRoute, useLocation } from 'wouter';
 import { easing } from 'maath';
 import { PortalMaterialType } from '@react-three/drei/core/MeshPortalMaterial';
-import { JSX } from 'react/jsx-dev-runtime';
-import IntrinsicElements = JSX.IntrinsicElements;
+// eslint-disable-next-line import/no-unresolved
+import { GroupProps } from '@react-three/fiber/dist/declarations/src/three-types';
 
 type PortalFrameProps = {
 	idd: string;
@@ -14,7 +14,7 @@ type PortalFrameProps = {
 	width: number | undefined;
 	height: number | undefined;
 	geometry: THREE.BufferGeometry;
-} & IntrinsicElements['group'];
+} & GroupProps;
 const PortalFrame = ({
 	idd,
 	width = 1,
